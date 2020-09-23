@@ -25,8 +25,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'DockerHubConnnection'
-        repository: 'houssemdocker/products-web'
+        containerRegistry: 'acr1287'
         command: 'build'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
@@ -34,10 +33,8 @@ stages:
     - task: Docker@2
       displayName: Push an image
       inputs:
-        containerRegistry: 'DockerHubConnnection'
-        repository: 'houssemdocker/products-web'
+        containerRegistry: 'acr1287'
         command: 'push'
-        Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
 
 - stage: Deploy
@@ -57,9 +54,9 @@ stages:
     - task: HelmDeploy@0
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscription: 'Visual Studio Enterprise(17b12858-3960-4e6f-a663-a06fdae23428)'
-        azureResourceGroup: 'aks-demo'
-        kubernetesCluster: 'aks-demo'
+        azureSubscription: 'TallerTech(1)(82089a1c-681b-401c-9565-e53f84ef4471)'
+        azureResourceGroup: 'RG-DEVOPS-POC'
+        kubernetesCluster: 'aks-test'
         command: 'upgrade'
         chartType: 'FilePath'
         chartPath: 'charts/productsstore'
